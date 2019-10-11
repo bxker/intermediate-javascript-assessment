@@ -37,13 +37,9 @@ function callBinding(magicAnimals, updateAnimal, id){
 
 // CODE HERE...
 function applyBinding(magicAnimals, updateAnimal, id){
-    magicAnimals.findIndex(el => {
-        if(el.id === id){
-            return el.animal
-        }
-    })
-    magicAnimals.push('being majestic', 'eating rainbows');
-    return updateAnimal()
+    let index = magicAnimals.findIndex(el => el.id === id)
+    // magicAnimals.push('being majestic', 'eating rainbows');
+    return updateAnimal.apply(magicAnimals[index], ['being majestic', 'eating rainbows'])
 }
 
 
