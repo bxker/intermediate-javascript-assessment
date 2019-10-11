@@ -43,8 +43,14 @@ function noWeakLink() {
     method: 'GET',
     url: '/api/users'
   })
-  // CODE HERE...
-
+  .then(res => {
+    firstUser = res.data[0]
+    return res
+  })
+  .then(res => {
+    thirdUser = res.data[2]
+    return res.data[9]
+  })
 }
 
 
@@ -70,10 +76,11 @@ var elephant = {
   name: 'Horton'
 }
 function large() {
-
   return 'My name is ' + this.name + ' and I am very heavy!'
 }
 // CODE HERE...
+var boundToElephant = large.bind(this.elephant)
+boundToElephant()
 
 
 
@@ -88,6 +95,10 @@ function large() {
 // and return the bound function.
 
 // CODE HERE...
+function deathStar(capacity, crew){
+  let boundFunc = capacity.bind(crew)
+  return boundFunc;
+}
 
 
 
@@ -103,6 +114,11 @@ function large() {
 // The closure function will return the combined value of assets and liabilities.
 
 // CODE HERE...
+function accountingOffice(assets){
+  return function inner(liabilities){
+    return assets + liabilities
+  }
+}
 
 
 
@@ -128,6 +144,16 @@ function large() {
 // };
 
 // CODE HERE...
+function forgetter(name){
+  let obj = {
+    name: name,
+    remember: []
+  }
+  return function rememberall(item){
+    obj.remember.push(item)
+    return obj
+  } 
+}
 
 
 
@@ -156,3 +182,29 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+
+function frodo(startingHungerValue, startingDangerValue){
+  let hunger = startingHungerValue;
+  let danger = startingDangerValue;
+    let obj = {
+      dinnerOverFire: function(){
+        let dinner = {
+          hunger: hunger - 25,
+          danger: danger + 40
+        }
+        if(dinner.hunger <= 100 && dinner.hunger >= 0 && dinner.danger <= 100 && dinner.danger >= 0){
+          return dinner
+        }
+      },
+      hidingInBush: function(){
+        let bush = {
+          hunger: hunger + 35,
+          danger: danger - 20
+        }
+        if(bush.hunger <= 100 && bush.hunger >= 0 && bush.danger <= 100 && bush.danger >= 0){
+          return bush
+        }
+      }
+    }
+    return obj
+  }
